@@ -53,5 +53,5 @@
     "watch:dev": "nodemon",
     "test": "jest"
   },
-  "engines": { "node": "20.x" }
+  "engines": { "node": "22.x" }
 }
