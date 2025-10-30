@@ -1,0 +1,33 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - echo "=== Install dependencies with npm ci ==="
+      - npm ci
+
+  build:
+    commands:
+      - echo "=== Clean & transpile ==="
+      - npm run clean
+      - npm run build
+
+  post_build:
+    commands:
+      - echo "=== Run tests ==="
+      - npm test -- --passWithNoTests
+      - echo "=== Prune dev dependencies for deployment ==="
+      - npm prune --production
+      - echo "=== Build finished ==="
+
+artifacts:
+  files:
+    - package.json
+    - package-lock.json
+    - Procfile
+    - dist-server/**        # Compiled executable code
+    - public/**             # static resources
+    - views/**              # template engine
+  discard-paths: no
