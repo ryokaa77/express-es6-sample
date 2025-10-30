@@ -42,6 +42,7 @@
   },
   "scripts": {
     "prestart": "npm run build",
+    "postinstall": "npm run build",
     "start": "npm run prod",
     "build": "npm run clean && npm run transpile",
     "server": "node ./dist-server/bin/www",
