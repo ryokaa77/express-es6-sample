@@ -41,7 +41,7 @@
     "testEnvironment": "node"
   },
   "scripts": {
-    "prestart": "npm run build",
+    "prestart": "if [ -d dist-server ]; then echo 'dist-server exists, skip build'; elif [ -d server ]; then npm run build; else echo 'no server src on instance, skip build'; fi",
     "start": "npm run prod",
     "build": "npm run clean && npm run transpile",
     "server": "node ./dist-server/bin/www.js",
