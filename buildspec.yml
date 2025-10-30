@@ -11,8 +11,15 @@ phases:
   build:
     commands:
       - echo "=== Clean & transpile ==="
-      - npm run clean
+      - npm run clean || true
       - npm run build
+      # 兜底：确保至少有一个文件进入产物，验证链路
+      - mkdir -p dist-server && echo OK > dist-server/ping.txt
+      - echo "=== List expected output folders ==="
+      - ls -alR dist-server || true
+      - ls -alR public || true
+      - ls -alR views || true
+      - ls -alR dist || true   # 很多脚手架默认输出到 dist
 
   post_build:
     commands:
@@ -23,11 +30,13 @@ phases:
       - echo "=== Build finished ==="
 
 artifacts:
+  # 若你的构建实际输出到 dist（而非 dist-server），也能被打包
   files:
     - package.json
     - package-lock.json
     - Procfile
-    - dist-server/**        # Compiled executable code
-    - public/**             # static resources
-    - views/**              # template engine
+    - dist-server/**
+    - public/**
+    - views/**
+    - dist/**
   discard-paths: no
