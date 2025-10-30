@@ -16,6 +16,9 @@ var debug = debugLib('myapp:server');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});
 
 /**
  * Create HTTP server.
